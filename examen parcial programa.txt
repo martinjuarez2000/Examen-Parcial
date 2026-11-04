@@ -1,0 +1,15 @@
+for ($i = 1; $i -le 3; $i++) {
+$fechaHora = Get-Date -Format "dd/MM/yyyy HH:mm:ss"
+    Write-Host "`n=== Verificación #$i - $fechaHora ===" 
+$adaptadoresActivos = Get-NetAdapter | Where-Object { $_.Status -eq 'Up' }
+Write-Host "Adaptadores de red activos:" 
+    $adaptadoresActivos | Format-Table -Property Name, InterfaceDescription, Status, LinkSpeed -AutoSize
+if ($i % 2 -eq 0) {
+        Write-Host "→ Iteración PAR ($i): Se realizó una verificación en momento par del ciclo." 
+    }
+    else {
+        Write-Host "→ Iteración IMPAR ($i): Se realizó una verificación en momento impar del ciclo." 
+    }
+}
+
+Write-Host "El monitoreo de la red ha concluido con éxito." 
